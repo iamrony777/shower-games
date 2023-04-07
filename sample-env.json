@@ -1,7 +1,7 @@
 {
-    "RAWG_API_KEY": "",
-    "JACKETT_API_KEY": "",
-    "JACKETT_API_URL": "",
-    "ENCODERS": [
-    ]
+    "RAWG_APIKEY": "",
+    "PROWLARR_APIKEY": "",
+    "PROWLARR_APIHOST": "",
+    "PROWLARR_SEARCH_LIMIT": 5,
+    "ENCODERS": []
 }

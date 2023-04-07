@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "name": "env.json",
+    "description": "Schema created for env.json, created from sample-env.json",
+    "type": "object",
+    "properties": {
+        "RAWG_APIKEY": {
+            "type": "string"
+        },
+        "PROWLARR_APIKEY": {
+            "type": "string"
+        },
+        "PROWLARR_APIHOST": {
+            "type": "string"
+        },
+        "PROWLARR_SEARCH_LIMIT": {
+            "type": "integer",
+            "default": 5
+        },
+        "ENCODERS": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "default": [
+                "DODI",
+                "FITGIRL",
+                "CODEX",
+                "GOG"
+            ]
+        }
+    },
+    "required": [
+        "RAWG_APIKEY",
+        "PROWLARR_APIKEY",
+        "PROWLARR_APIHOST",
+        "ENCODERS"
+    ]
+}
