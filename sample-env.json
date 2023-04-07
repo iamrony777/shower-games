@@ -3,5 +3,10 @@
     "PROWLARR_APIKEY": "",
     "PROWLARR_APIHOST": "",
     "PROWLARR_SEARCH_LIMIT": 5,
-    "ENCODERS": []
+    "ENCODERS": [
+        "DODI",
+        "FITGIRL",
+        "CODEX",
+        "GOG"
+    ]
 }

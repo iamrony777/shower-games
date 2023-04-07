@@ -5,16 +5,20 @@
     "type": "object",
     "properties": {
         "RAWG_APIKEY": {
-            "type": "string"
+            "type": "string",
+            "description": "Get your apikey from here https://rawg.io/apidocs"
         },
         "PROWLARR_APIKEY": {
-            "type": "string"
+            "type": "string",
+            "description": "Read the docs, https://wiki.servarr.com/prowlarr"
         },
         "PROWLARR_APIHOST": {
-            "type": "string"
+            "type": "string",
+            "description": "Read the docs, https://wiki.servarr.com/prowlarr"
         },
         "PROWLARR_SEARCH_LIMIT": {
             "type": "integer",
+            "description": "Maximum number of results to respond with",
             "default": 5
         },
         "ENCODERS": {
@@ -22,6 +26,7 @@
             "items": {
                 "type": "string"
             },
+            "description": "Priority is given to listed encoders if available",
             "default": [
                 "DODI",
                 "FITGIRL",
