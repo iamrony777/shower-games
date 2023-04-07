@@ -1,0 +1,14 @@
+{
+    "builds": [
+        {
+            "src": "game_query/app.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "game_query/app.py"
+        }
+    ]
+}

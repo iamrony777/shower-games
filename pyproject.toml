@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "game-query"
+version = "0.1.0"
+description = ""
+authors = ["iamrony777 <iamrony777@proton.me>"]
+readme = "README.md"
+packages = [{include = "game_query"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.95.0"
+uvicorn = "^0.21.1"
+httpx = {extras = ["http2"], version = "^0.23.3"}
+
+
+[tool.poetry.group.dev.dependencies]
+python-dotenv = "^1.0.0"
+json-environ = "^0.1.1"
+
+
+[tool.poetry.group.local.dependencies]
+black = "^23.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
