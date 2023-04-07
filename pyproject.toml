@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "game_query"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 fastapi = "^0.95.0"
 uvicorn = "^0.21.1"
 httpx = {extras = ["http2"], version = "^0.23.3"}

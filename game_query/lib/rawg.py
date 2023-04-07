@@ -1,6 +1,6 @@
 import os
 from httpx import Client
-from game_query.lib.jackett import search
+from game_query.lib.prowlarr import search
 from game_query import env
 
 
@@ -8,7 +8,7 @@ class Rawg:
     """Fetch data from api.rawg.io"""
 
     def __init__(self) -> None:
-        self.apiKey = env("RAWG_API_KEY")
+        self.apiKey = env("RAWG_APIKEY")
         self.client = Client(
             base_url="https://api.rawg.io/api", params={"key": self.apiKey}
         )
@@ -62,4 +62,4 @@ if __name__ == "__main__":
     rawg = Rawg()
     from json import dumps
 
-    print(dumps(rawg.games("Forza Horizon 4 Delux edition"), indent=2))
+    print(dumps(rawg.games("Forza Horizon 4 Ultimate edition"), indent=2))

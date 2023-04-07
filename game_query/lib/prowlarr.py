@@ -34,25 +34,26 @@ def top_encoder(title: str):
     return False
 
 def search(query: str) -> torrent:
-    url = "/indexers/all/results"
+    url = "/api/v1/search"
     torrents = []
     client = Client(
-        base_url=env("JACKETT_API_URL"),
+        base_url=env("PROWLARR_APIHOST"),
         params={
-            "Category": "4050",
-            "Tracker": ["1337x", "rarbg", "thepiratebay", "limetorrents", "bt4g"],
-            "apikey": env("JACKETT_API_KEY")
+            "categories": 4000,
+            # "categories": 1000,
+            "type": "search",
+            "limit": env("PROWLARR_SEARCH_LIMIT")
         },
-        headers={"Accept": "application/json"},
+        headers={"Accept": "application/json", "x-api-key": env("PROWLARR_APIKEY")},
         verify=False
     )
 
-    res =  client.get(url, params={"Query": query}, timeout=60).json()
+    res =  client.get(url, params={"query": query}, timeout=10).json()
     id = 1
-    for r in res['Results']:
-        download_url = r['MagnetUri'] if r['MagnetUri'] else r['Link']
-        torrents.append(torrent(id, r['Title'].encode(
-            'ascii', errors='ignore'), r['CategoryDesc'], r['Seeders'], r['Peers'], download_url, r['Size']))
+    for r in res:
+        download_url = r['downloadUrl'] if 'downloadUrl' in r else r['magnetUrl']
+        torrents.append(torrent(id, r['title'].encode(
+            'ascii', errors='ignore'), r['categories'][0]["name"], r['seeders'], r['leechers'], download_url, r['size']))
         id += 1    
 
     # Sort torrents array
@@ -62,14 +63,15 @@ def search(query: str) -> torrent:
         if query in t.description.decode("utf-8") and top_encoder(t.description.decode("utf-8")):
             return t
 
-    # for t in torrents:
-        # if top_encoder(t.description.decode("utf-8")):
+    for t in torrents:
+        if top_encoder(t.description.decode("utf-8")):
+            return t # return only 1st result, sorted by seeders
 
-            # return t # return only 1st result, sorted by seeders
     return torrents[0:5] if len(torrents) >= 1 else {}
-        
+    # return torrents
+        # 
 
 
 
 if __name__ == "__main__":
-    print(search("Forza Horizon 4 Delux edition"))
+    print(search("Forza Horizon 4"))
