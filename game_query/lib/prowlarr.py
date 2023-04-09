@@ -49,6 +49,7 @@ def search(query: str) -> torrent:
     )
 
     res =  client.get(url, params={"query": query}, timeout=10).json()
+    print(res)
     id = 1
     for r in res:
         download_url = r['downloadUrl'] if 'downloadUrl' in r else r['magnetUrl']

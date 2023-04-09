@@ -7,7 +7,7 @@ from httpx import Client
 
 # fetch
 with Client() as client:
-    response = client.get("https://fitgirl-repacks.site/", params={"s": "House Party"})
+    response = client.get("https://fitgirl-repacks.site/", params={"s": ""})
 
     tree: html.HtmlElement = html.fromstring(
         html=response.content,
@@ -17,7 +17,11 @@ with Client() as client:
 
     data = {}
     for result in tree.findall(".//article"):
-        data["name"] = result.find("header/h1[@class='entry-title']/a").text.encode("ascii", "ignore").decode()
+        data["name"] = (
+            result.find("header/h1[@class='entry-title']/a")
+            .text.encode("ascii", "ignore")
+            .decode()
+        )
         data["page"] = result.find("header/h1[@class='entry-title']/a").get("href")
         data["download"] = {}
         response = client.get(data["page"], follow_redirects=True)
@@ -28,6 +32,12 @@ with Client() as client:
             parser=html.HTMLParser(encoding="utf-8"),
         )
 
+        info = dict(
+            zip(
+                [key.strip().lower().replace(" ", "_") for key in tree.xpath("//p[@style]/text()")],
+                tree.xpath("//p[@style]/strong/text()"),
+            )
+        )
         for mirrors in tree.findall(".//div[@class='entry-content']/ul[1]/li"):
             for a in mirrors.findall(".//a"):
                 if a.text == "1337x":
@@ -36,6 +46,7 @@ with Client() as client:
                     data["download"].update({"magnet": a.get("href")})
                 if a.text == ".torrent file only":
                     data["download"].update({"torrent": a.get("href")})
-
+        
+        data["info"] = info
         print(dumps(data, indent=2))
         exit(0)
